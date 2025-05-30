@@ -71,6 +71,8 @@ A repository where developers can pull images from and push custom images to sha
 It will not work if you try to run it directly like: `./script.sh`
 unless you give it execute permission with: `chmod +x script.sh` |
 
+--- 
+
 ## Docker Commands:
 | command            | Description |
 |------------------- | ----------- |

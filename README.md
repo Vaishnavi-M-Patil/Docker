@@ -64,3 +64,11 @@ A repository where developers can pull images from and push custom images to sha
 
   ![docker](https://github.com/Vaishnavi-M-Patil/Docker/blob/main/assets/docker.jpg)
   ![bare-metal](https://github.com/Vaishnavi-M-Patil/Docker/blob/main/assets/bare%20metal.jpg)
+
+| Can a .sh (shell script) file be executed in Ubuntu without giving it execute permissions, and how? |
+| ---------------------------------------------------------------------------------------------------- |
+| When you run `bash script.sh`, you are passing the file as an argument to the bash program, which reads and runs it — the file itself does not need to be executable.
+It will not work if you try to run it directly like:
+```./script.sh```
+unless you give it execute permission with:
+```chmod +x script.sh``` |

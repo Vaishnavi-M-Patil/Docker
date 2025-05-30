@@ -70,3 +70,31 @@ A repository where developers can pull images from and push custom images to sha
 | When you run `bash script.sh`, you are passing the file as an argument to the bash program, which reads and runs it — the file itself does not need to be executable.
 It will not work if you try to run it directly like: `./script.sh`
 unless you give it execute permission with: `chmod +x script.sh` |
+
+## Docker Commands:
+| command            | Description |
+|------------------- | ----------- |
+| docker pull nginx:latest |  |
+| docker images |  |
+| docker run -d --name -p 80:80 spider nginx:latest |  |
+| docker ps |  |
+| docker ps -a |  |
+| docker kill containerID/name |  |
+| docker rm -f containerID/name |  |
+| docker ps -a -q |  |
+| docker inspect containerID/name |  |
+| docker rm -f containerID/name |  |
+| docker exec -it containerID/name bash |  |
+| docker ps -a -q |  |
+| docker stop containerID/name |  |
+| docker start containerID/name |  |
+| docker container prune |  |
+| docker image prune |  |
+| docker commit containerID/name |  |
+| docker tag containerID/name imgName:tag |  |
+| docker login |  |
+| docker push imgName:tag |  |
+
+
+
+

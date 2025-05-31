@@ -143,13 +143,15 @@ This mounts the local `/home/user/app` directory to `/usr/share/nginx/html` in t
 | nginx | `/usr/share/nginx/html` |
 | ubuntu/apache2 | `/var/www/html` |
 
-```docker run -d -v myvol:/var/www/html/ --name apache_container -p 80:80 ubuntu/apache2```
+```
+docker run -d -v myvol:/var/www/html/ --name apache_container -p 80:80 ubuntu/apache2
+```
 
 #### Note:
- why Docker behaves differently for volumes vs bind mounts when the mount directory is deleted on the host:
+ why Docker behaves differently for volumes vs bind mounts when the mount directory is deleted on the host:  
  **Docker Volumes:**
 - If you delete or manually modify the volume's internal directory (e.g., in /var/lib/docker/volumes/), Docker detects this as corruption or missing data.
-- This leads to container start failures or runtime errors
+- This leads to container start failures or runtime errors.  
 **Bind Mounts:**
 - If you delete the bind mount target after the container is running:
      - Docker doesn't care—it's just an empty path.

@@ -85,7 +85,7 @@ unless you give it execute permission with: `chmod +x script.sh` |
 | docker inspect containerID/name | Displays detailed information about a container. |
 | docker exec -it containerID/name bash | Opens an interactive Bash shell inside a running container. |
 | docker rm -f containerID/name | Removes a container (even if it's running, due to -f). |
-| docker ps -a -q | Lists only the container IDs of all containers. |
+| docker ps -q | Lists only the container IDs of all containers. |
 | docker stop containerID/name | stops a running container. |
 | docker start containerID/name | Starts a stopped container. |
 | docker container prune | Removes all stopped containers. |
@@ -110,7 +110,74 @@ docker run -d --name httpd_container -p 80:80 httpd
 - Starts httpd inside a Docker container.
 - Makes the server accessible on your local machine via http://localhost.
 
+---
+
+## what is docker volume mount and docker bind mount?
+### Docker volume mount:
+- Docker creates and manages a persistent storage location, typically under /var/lib/docker/volumes/.
+- managed by Docker
+- Useful for data **persistence**, **portability**, and **backups**.
+- Safer and more robust for production use.
+- Can be easily shared between containers.
+#### Example:
+```
+docker volume create myvolume
+docker run -d -v myvolume:/usr/share/nginx/html nginx
+```
+This mounts the `myvolume` to the container’s `/usr/share/nginx/html`.
+
+### Docker bind mount:
+- Bind mounts directly link a host directory to a directory inside the container.
+- Managed by the host, not Docker.
+- Ideal for development and accessing specific host files (e.g., source code, logs).
+- Not portable across different environments.
+#### Example:
+```
+docker volume create myvolume
+docker run -d -v /home/user/app:/usr/share/nginx/html nginx
+```
+This mounts the local `/home/user/app` directory to `/usr/share/nginx/html` in the container.
+
+| image | default `index.html` path |
+| httpd | `/usr/local/apache2/htdocs/` |
+| nginx | `/usr/share/nginx/html` |
+| ubuntu/apache2 | `/var/www/html` |
+
+```docker run -d -v myvol:/var/www/html/ --name apache_container -p 80:80 ubuntu/apache2```
+
+#### Note:
+ why Docker behaves differently for volumes vs bind mounts when the mount directory is deleted on the host:
+ **Docker Volumes:**
+- If you delete or manually modify the volume's internal directory (e.g., in /var/lib/docker/volumes/), Docker detects this as corruption or missing data.
+- This leads to container start failures or runtime errors
+**Bind Mounts:**
+- If you delete the bind mount target after the container is running:
+     - Docker doesn't care—it's just an empty path.
+     - Your container may still run, but the mounted directory inside it will be empty or inaccessible.
 
 
+## Docker Status code:
+- Status codes provides information about the outcome of a container's execution.
+- Or state of a container.
+### Common Docker Container Status:
+| Status |	Meaning |
+| ------ | ------- |
+| Up |	Container is running |
+| Exited (0)	| Container stopped normally (successful execution) | 
+| Exited (1)	| error (e.g., script error, bad command) |
+| Exited (137)	| Container was killed (e.g., kill -9, out-of-memory) |
+| Exited (139)	| Segmentation fault (common in C/C++ apps) |
+| Created	| Container created but not yet started |
+| Paused	| Container is running but paused (e.g., via docker pause) |
+| Restarting |	Container is restarting (e.g., via restart policy) |
+| Dead |	Container is unresponsive or corrupted |
 
-
+### Exit Codes Overview (for Exited (N)):
+| Code |	Meaning |
+| ---- | -------- |
+| 0 |	Success (normal exit) |
+| 1	| General error |
+| 127 |	Command not found |
+| 126 |	Command found but not executable |
+| 137	| Killed by signal (e.g., SIGKILL) |
+| 139	| Segmentation fault (core dumped) |

@@ -76,26 +76,40 @@ unless you give it execute permission with: `chmod +x script.sh` |
 ## Docker Commands:
 | command            | Description |
 |------------------- | ----------- |
-| docker pull nginx:latest |  |
-| docker images |  |
-| docker run -d --name -p 80:80 spider nginx:latest |  |
-| docker ps |  |
-| docker ps -a |  |
-| docker kill containerID/name |  |
-| docker rm -f containerID/name |  |
-| docker ps -a -q |  |
-| docker inspect containerID/name |  |
-| docker rm -f containerID/name |  |
-| docker exec -it containerID/name bash |  |
-| docker ps -a -q |  |
-| docker stop containerID/name |  |
-| docker start containerID/name |  |
-| docker container prune |  |
-| docker image prune |  |
-| docker commit containerID/name |  |
-| docker tag containerID/name imgName:tag |  |
-| docker login |  |
-| docker push imgName:tag |  |
+| docker pull nginx:latest | Downloads the latest nginx image from Docker Hub. |
+| docker images | Lists all Docker images available locally. |
+| docker run -d --name nginx_container -p 80:80 spider nginx:latest | Runs an nginx container in detached mode, maps host port 80 to container port 80, and names it nginx_container. |
+| docker ps | Lists running containers. |
+| docker ps -a | Lists all containers, including stopped ones. |
+| docker kill containerID/name | Forcefully stops a running container immediately. |
+| docker inspect containerID/name | Displays detailed information about a container. |
+| docker exec -it containerID/name bash | Opens an interactive Bash shell inside a running container. |
+| docker rm -f containerID/name | Removes a container (even if it's running, due to -f). |
+| docker ps -a -q | Lists only the container IDs of all containers. |
+| docker stop containerID/name | stops a running container. |
+| docker start containerID/name | Starts a stopped container. |
+| docker container prune | Removes all stopped containers. |
+| docker image prune | Removes unused images. |
+| docker commit containerID/name | Creates a new image from a container’s current state. |
+| docker tag containerID/name imgName:tag | Tags an image with a new name and tag. |
+| docker login | Logs into Docker Hub  |
+| docker push imgName:tag | Pushes a tagged image to Docker Hub |
+
+
+```
+docker run -d --name httpd_container -p 80:80 httpd
+```
+| Part |	Description |
+| ------ | ---------- |
+| docker run	| Runs a new container |
+| -d	| Detached mode – runs the container in the background |
+| --name httpd_container |	Names the container httpd_container |
+| -p 80:80 |	Maps port 80 of the host to port 80 of the container (HTTP traffic) |
+| httpd |	docker image httpd from dockerhub |
+#### What It Does:
+- Starts httpd inside a Docker container.
+- Makes the server accessible on your local machine via http://localhost.
+
 
 
 
